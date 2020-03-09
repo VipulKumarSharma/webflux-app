@@ -22,7 +22,7 @@ public class RouterConfig {
                 handler::flux
             )
             .andRoute(
-                GET("/functional/mono").and(accept(MediaType.APPLICATION_STREAM_JSON)),
+                GET("/functional/mono").and(accept(MediaType.APPLICATION_JSON)),
                 handler::mono
             );
     }
