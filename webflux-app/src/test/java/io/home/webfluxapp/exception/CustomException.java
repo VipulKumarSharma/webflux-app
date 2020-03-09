@@ -1,4 +1,4 @@
-package io.home.webfluxapp.flux;
+package io.home.webfluxapp.exception;
 
 public class CustomException extends Throwable {
 

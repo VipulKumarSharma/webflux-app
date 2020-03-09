@@ -1,5 +1,6 @@
 package io.home.webfluxapp.flux;
 
+import io.home.webfluxapp.exception.CustomException;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
