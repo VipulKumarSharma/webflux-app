@@ -1,4 +1,4 @@
-INSERT INTO EMPLOYEE (id, name, salary) VALUES ('1', 'Ajay', '56745');
-INSERT INTO EMPLOYEE (id, name, salary) VALUES ('2', 'Vipul', '31345');
-INSERT INTO EMPLOYEE (id, name, salary) VALUES ('3', 'Rakesh', '123531');
-INSERT INTO EMPLOYEE (id, name, salary) VALUES ('4', 'Abhinash', '123531');
+INSERT INTO ITEM (id, description, price) VALUES ('1', 'Item 1', 100.11);
+INSERT INTO ITEM (id, description, price) VALUES ('2', 'Item 2', 200.22);
+INSERT INTO ITEM (id, description, price) VALUES ('3', 'Item 3', 300.33);
+INSERT INTO ITEM (id, description, price) VALUES ('4', 'Item 4', 400.44);
