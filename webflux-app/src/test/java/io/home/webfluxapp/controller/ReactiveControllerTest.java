@@ -23,6 +23,9 @@ public class ReactiveControllerTest {
     @Autowired
     WebTestClient webTestClient; /** @WebFluxTest creates it's instance **/
 
+    /** Browser is a blocking Client
+     ** request(unbounded) -> give me all the data available
+     **/
     @Test
     public void flux_approach1() {
         Flux<Integer> integerFlux = webTestClient
