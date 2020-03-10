@@ -1,12 +1,15 @@
 package io.home.webfluxclient.controller;
 
 import io.home.webfluxclient.domain.Item;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @RestController
 public class ItemsClientController {
 
@@ -94,5 +97,43 @@ public class ItemsClientController {
                 .retrieve()
                 .bodyToMono(Void.class)
                 .log("deleteItem");
+    }
+
+    @GetMapping("/error/retrieve")
+    public Mono<Item> getServerErrorUsingRetrieve() {
+        return webClient
+                .get()
+                .uri("/functional/error")
+                .retrieve()
+                .onStatus(HttpStatus::is5xxServerError, clientResponse ->
+                    clientResponse.bodyToMono(String.class)
+                        .flatMap(s -> {
+                            log.error("On retrieve error Message is : {}", s);
+                            return Mono.error(new RuntimeException(s));
+                        })
+                )
+                .bodyToMono(Item.class);
+    }
+
+    @GetMapping("/error/exchange")
+    public Flux<Item> getServerErrorUsingExchange() {
+        /** .exchange() does not have .onStatus() **/
+
+        return webClient
+                .get()
+                .uri("/functional/error")
+                .exchange()
+                .flatMapMany(clientResponse -> {
+                    if(clientResponse.statusCode().is5xxServerError()) {
+                        return clientResponse.bodyToMono(String.class)
+                            .flatMap(s -> {
+                                log.error("On exchange error Message is : {}", s);
+                                return Mono.error(new RuntimeException(s));
+                            });
+
+                    } else {
+                        return clientResponse.bodyToMono(Item.class);
+                    }
+                });
     }
 }
