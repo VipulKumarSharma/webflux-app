@@ -1,5 +1,6 @@
 package io.home.webfluxapp.handler;
 
+import io.home.webfluxapp.persistence.Item;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,11 @@ public class AppRequestHandlerTest {
     WebTestClient webTestClient;
 
     @Test
-    public void flux_approach1() {
+    public void fluxTesting() {
         Flux<Integer> integerFlux = webTestClient
                 .get()
                 .uri("/functional/flux")
-                .accept(MediaType.APPLICATION_STREAM_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .exchange()
                 .expectStatus().isOk()
                 .returnResult(Integer.class)
@@ -44,7 +45,7 @@ public class AppRequestHandlerTest {
     }
 
     @Test
-    public void mono_approach1() {
+    public void monoTesting() {
         Integer expectedValue = 1;
 
         webTestClient
@@ -59,4 +60,22 @@ public class AppRequestHandlerTest {
                 });
     }
 
+    @Test
+    public void streaming() {
+        Flux<Item> itemFlux = webTestClient
+                .get()
+                .uri("/functional/stream")
+                .accept(MediaType.APPLICATION_STREAM_JSON)
+                .exchange()
+                .expectStatus().isOk()
+                .returnResult(Item.class)
+                .getResponseBody()
+                .take(5);
+
+        StepVerifier.create(itemFlux)
+                .expectSubscription()
+                .expectNextCount(5)
+                .thenCancel()
+                .verify();
+    }
 }
