@@ -19,12 +19,16 @@ public class RouterConfig {
     public RouterFunction<ServerResponse> route(AppRequestHandler appHandler, ItemsHandler itemsHandler) {
         return RouterFunctions
             .route(
-                GET("/functional/flux").and(accept(MediaType.APPLICATION_STREAM_JSON)),
+                GET("/functional/flux").and(accept(MediaType.APPLICATION_JSON)),
                 appHandler::flux
             )
             .andRoute(
                 GET("/functional/mono").and(accept(MediaType.APPLICATION_JSON)),
                 appHandler::mono
+            )
+            .andRoute(
+                GET("/functional/stream").and(accept(MediaType.APPLICATION_STREAM_JSON)),
+                appHandler::streaming
             )
             .andRoute(
                 GET(AppConstants.ITEM_FUNC_ENDPOINT_V1).and(accept(MediaType.APPLICATION_JSON)),
