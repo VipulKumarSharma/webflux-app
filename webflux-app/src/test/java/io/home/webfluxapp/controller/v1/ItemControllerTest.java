@@ -186,4 +186,16 @@ public class ItemControllerTest {
                 .exchange()
                 .expectStatus().isNotFound();
     }
+
+    @Test
+    public void runTimeException() {
+        webTestClient
+                .get()
+                .uri(AppConstants.ITEM_ENDPOINT_V1+"/error")
+                .exchange()
+                .expectStatus().is5xxServerError()
+                .expectBody(String.class)
+                .isEqualTo("Intentional Runtime Exception");
+
+    }
 }

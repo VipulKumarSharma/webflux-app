@@ -93,11 +93,6 @@ public class ItemsHandler {
     }
 
     public Mono<ServerResponse> generateError(ServerRequest request) {
-        return ServerResponse.ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(
-                    Mono.error(new RuntimeException("Intentional Runtime Exception")),
-                    RuntimeException.class
-                );
+        return Mono.error(new RuntimeException("Intentional Runtime Exception"));
     }
 }
