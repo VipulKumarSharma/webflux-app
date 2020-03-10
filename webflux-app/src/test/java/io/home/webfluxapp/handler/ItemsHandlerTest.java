@@ -181,4 +181,14 @@ public class ItemsHandlerTest {
                 .expectStatus().isNotFound();
     }
 
+    @Test
+    public void runTimeException() {
+        webTestClient
+                .get()
+                .uri("/functional/error")
+                .exchange()
+                .expectStatus().is5xxServerError()
+                .expectBody()
+                .jsonPath("$.message","Intentional Runtime Exception");
+    }
 }

@@ -39,7 +39,7 @@ public class FunctionalApiWebExceptionHandler extends AbstractErrorWebExceptionH
 
     private Mono<ServerResponse> renderErrorResponse(ServerRequest request) {
         Map<String, Object> errorAttributes = getErrorAttributes(request, false);
-        log.error("Error Attributes : {}", errorAttributes);
+        log.error("FunctionalApiWebExceptionHandler : renderErrorResponse() : Error Attributes : {}", errorAttributes);
 
         return ServerResponse.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .contentType(MediaType.APPLICATION_JSON)
