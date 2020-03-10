@@ -1,14 +1,13 @@
-package io.home.webfluxapp;
+package io.home.webfluxclient;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WebfluxAppApplication {
+public class WebfluxClientApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WebfluxAppApplication.class, args);
+		SpringApplication.run(WebfluxClientApplication.class, args);
 	}
-
 
 }

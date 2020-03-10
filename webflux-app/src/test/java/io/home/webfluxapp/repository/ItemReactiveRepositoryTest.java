@@ -14,11 +14,14 @@ import reactor.test.StepVerifier;
 
 import java.util.List;
 
-@DataR2dbcTest
 @RunWith(SpringRunner.class)
+@DataR2dbcTest
 @DirtiesContext
 public class ItemReactiveRepositoryTest {
 
+    /** @DataR2dbcTest does not load whole App Context
+     ** So CommandLineRunner is not executed
+     **/
     @Autowired
     ItemReactiveRepository itemRepo;
 

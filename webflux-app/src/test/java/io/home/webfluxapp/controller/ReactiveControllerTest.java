@@ -18,16 +18,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @WebFluxTest
-/** @WebFluxTest scans @Controller, NOT @Component / @Service / @Repository **/
 @DirtiesContext
 public class ReactiveControllerTest {
 
-    @Autowired
-    WebTestClient webTestClient; /** @WebFluxTest creates it's instance **/
-
-    /** Browser is a blocking Client
-     ** request(unbounded) -> give me all the data available
+    /** @WebFluxTest scans @Controller, NOT @Component / @Service / @Repository
+     ** It creates WebTestClient instance.
+     ** Browser is a blocking Client
+     *  request(unbounded) -> give me all the data available
      **/
+
+    @Autowired
+    WebTestClient webTestClient;
+
     @Test
     public void flux_approach1() {
         Flux<Integer> integerFlux = webTestClient

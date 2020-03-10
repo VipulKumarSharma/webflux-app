@@ -15,9 +15,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-/** @SpringBootTest can scan @Component NOT @WebFluxTest **/
 @AutoConfigureWebTestClient
 public class AppRequestHandlerTest {
+
+    /** @SpringBootTest can scan @Component NOT @WebFluxTest **/
 
     @Autowired
     WebTestClient webTestClient;
